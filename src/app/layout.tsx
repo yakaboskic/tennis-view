@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tennis Court Availability",
-  description: "Harvard Rec Tennis Court Availability Viewer",
+  title: "Harvard Rec Availability",
+  description: "Harvard Rec Reservation Availability Viewer",
 };
 
 export default function RootLayout({

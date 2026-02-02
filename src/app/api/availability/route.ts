@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
-import puppeteer, { Browser } from 'puppeteer';
+import puppeteer, { Browser } from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 import { SPORTS_CONFIG, Sport, Court } from '@/lib/courts';
+
+// Vercel serverless config - max 60s on Pro plan, 10s on Hobby
+export const maxDuration = 60;
 
 const BASE_URL = 'https://membership.gocrimson.com/Program/GetProgramDetails';
 
@@ -259,8 +263,10 @@ export async function GET(request: Request) {
   log('════════════════════════════════════════════════════════════════');
 
   const browser = await puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: { width: 1920, height: 1080 },
+    executablePath: await chromium.executablePath(),
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
   try {
